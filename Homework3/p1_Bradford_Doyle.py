@@ -1,5 +1,6 @@
 from typing import Any
 def testif(condition: bool, pass_msg: str, fail_msg: str) -> None:
+    """Print PASS or FAIL depending on condition."""
     if condition:
         print("PASS:", pass_msg)
     else: 
@@ -105,6 +106,7 @@ class NVector:
 
 #part K
 def main() -> None:
+    """Run testif checks for NVector parts a through i."""
     print("Doyle Bradford #23673509")
     v1 = NVector([3, 0, 1, -1])
     v2 = NVector(3, 0, 1, -1)

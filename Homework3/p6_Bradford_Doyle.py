@@ -3,10 +3,12 @@ from __future__ import annotations
 class Entry:
     """The base class for a storage entry"""
     def __init__(self, name: str, parent: Entry | None = None) -> None:
+        """Store entry name and optional parent folder."""
         self.name = name
         self._parent = parent    
 
     def parent(self) -> Entry | None:
+        """Return the parent entry, or None at the root."""
         return self._parent
 
     def size(self) -> int:
@@ -28,11 +30,13 @@ class File(Entry):
         super().__init__(name, parent)
         self.bytes_used = bytes_used
     def size(self) -> int:
+        """Return this file size in bytes."""
         return self.bytes_used
 
 class Folder(Entry):
     """A folder that has other entries"""
     def __init__(self, name: str, parent: Entry | None = None) -> None:
+        """Create an empty folder with the given name."""
         super().__init__(name, parent)
         self._children: list[Entry] = []
 

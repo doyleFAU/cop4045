@@ -201,10 +201,12 @@ class Animal(object):
                 self.island.register(new_animal)
 
     def clear_moved_flag(self):
+        '''Reset moved flag at start of a simulation tick.'''
         self.moved=False
 
 class Prey(Animal):
     def __init__(self, island, x=0,y=0,s="O"):
+        '''Initialize prey and its breed clock.'''
         Animal.__init__(self,island,x,y,s)
         self.breed_clock = self.breed_time
         # print('Init Prey {},{}, breed:{}'.format(self.x, self.y,self.breed_clock))
@@ -217,6 +219,7 @@ class Prey(Animal):
 
 class Predator(Animal):
     def __init__(self, island, x=0,y=0,s="X"):
+        '''Initialize predator and its starve and breed clocks.'''
         Animal.__init__(self,island,x,y,s)
         self.starve_clock = self.starve_time
         self.breed_clock = self.breed_time
@@ -252,18 +255,22 @@ class Predator(Animal):
                 self.moved=True
 
 class Human(Animal):
+    '''Human hunts predators and starves like a predator.'''
     def __init__(self, island, x = 0, y = 0, s = "H"):
+        '''Initialize human and breed, starve, and hunt clocks.'''
         Animal.__init__(self, island, x, y, s)
         self.breed_clock = self.breed_time
         self.starve_clock = self.starve_time
         self.hunt_clock = self.hunt_time
     def clock_tick(self) -> None:
+        '''Update clocks and remove human if starved.'''
         self.breed_clock -= 1
         self.starve_clock -= 1
         self.hunt_clock -= 1
         if self.starve_clock <= 0:
             self.island.remove(self)
     def hunt(self) -> None:
+        '''Move to a neighboring predator and eat it if hunt clock expired.'''
         if not self.moved and self.hunt_clock <= 0:
             location = self.check_grid(Predator)
             if location:
@@ -278,6 +285,7 @@ class Human(Animal):
             else:
                 self.hunt_clock = self.hunt_time
 def populations_stable(prey_list, predator_list, human_list, window=20):
+    '''True if last window counts are constant for all three species.'''
     if len(prey_list) < window:
         return False
     if len(set(prey_list[-window:])) != 1:

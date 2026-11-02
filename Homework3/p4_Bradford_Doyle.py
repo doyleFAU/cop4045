@@ -93,6 +93,7 @@ def test_ed_replace() -> None:
     testif(n2 == 2, "replace all count ok", "replace all failed")
 
 def main() -> None:
+    """Demo text editor on file1.txt for homework screenshot."""
     print("Doyle Bradford #23673509")
     fn = "file1.txt"
     ed_append(fn, "0123456789")

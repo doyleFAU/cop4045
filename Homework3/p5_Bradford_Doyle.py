@@ -37,6 +37,7 @@ def strB(n: int, base: int = 10) -> str:
     if n == 0:
         return "0"
     def helper(num: int) -> str:
+        """Recursive step for strB."""
         if num < base:
             return _digit_char(num)
         return helper(num // base) + _digit_char(num % base)
@@ -82,6 +83,7 @@ def test_Cnk_m() -> None:
 def make_pairs(seq1: list, seq2: list) -> list[tuple]:
     """Pairs (seq1[i], seq2[i]) until shorter list ends. Recursive"""
     def helper(i: int, acc: list[tuple]) -> list[tuple]:
+        """Build pairs from index i onward."""
         if i >= len(seq1) or i >= len(seq2):
             return acc
         acc.append((seq1[i], seq2[i]))
@@ -98,6 +100,7 @@ def test_make_pairs() -> None:
 
 
 def main() -> None:
+    """Run tests, print Cnk demo, then draw turtle leaf."""
     print("Doyle Bradford #23673509")
     test_strB()
     test_Cnk_m()

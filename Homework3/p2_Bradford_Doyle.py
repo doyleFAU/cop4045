@@ -1,15 +1,20 @@
 #part A
 class ParkingPermit:
+    """Base parking permit with owner, months, and fee schedule dict."""
     def __init__(self, owner: str, months: int, fee_schedule: dict[str, float]) -> None:
+        """Store owner name, months purchased, and rates in fee_schedule."""
         self._owner = owner
         self._months = months
         self._fee_schedule = fee_schedule
     def cost(self) -> float:
+        """Subclasses override to compute permit cost."""
         return 0.0
 
 #part B
 class StudentPermit(ParkingPermit):
+    """Student permit; also tracks number of vehicles."""
     def __init__(self, owner: str, months: int, fee_schedule: dict[str, float], vehicles: int) -> None:
+        """Create student permit with vehicle count."""
         super().__init__(owner, months, fee_schedule)
         self._vehicles = vehicles
 
@@ -25,14 +30,18 @@ class StudentPermit(ParkingPermit):
 
 #part D
     def __str__(self) -> str:
+        """Readable string for print."""
         return("StudentPermit(" + self._owner + ", " + str(self._months) + " months, " + str(self._vehicles) + " vehicles)")
 
     def __repr__(self) -> str:
+        """Debug string to recreate object."""
         return ("StudentPermit(" + repr(self._owner) + ", " + repr(self._months) + ", " + repr(self._fee_schedule) + ", " + repr(self._vehicles) + ")")
 
 
 class FacultyPermit(ParkingPermit):
+    """Faculty permit; also tracks garage access."""
     def __init__(self, owner: str, months: int, fee_schedule: dict[str, float], garage: bool) -> None:
+        """Create faculty permit with garage flag."""
         super().__init__(owner, months, fee_schedule)
         self._garage = garage
 
@@ -48,6 +57,7 @@ class FacultyPermit(ParkingPermit):
 
 #part D
     def __str__(self) -> str:
+        """Readable string for print."""
         if self._garage:
             g = "yes"
         else:
@@ -55,6 +65,7 @@ class FacultyPermit(ParkingPermit):
         return("FacultyPermit(" + self._owner + ", " + str(self._months) + " months, garage=" + g + ")")
 
     def __repr__(self) -> str:
+        """Debug string to recreate object."""
         return ("FacultyPermit(" + repr(self._owner) + ", " + repr(self._months) + ", " + repr(self._fee_schedule) + ", " + repr(self._garage) + ")")
 
 
@@ -70,6 +81,7 @@ def summarize_list(permits: list[ParkingPermit]) -> float:
 
 #part F
 def main() -> None:
+    """Demo permits and summarize_list for homework screenshot."""
     print("Doyle Bradford #23673509")
     student_rates: dict[str, float] ={"monthly": 25.0, "extra_vehicle": 10.0}
     faculty_rates: dict[str, float] = {"monthly": 40.0, "garage": 15.0}
